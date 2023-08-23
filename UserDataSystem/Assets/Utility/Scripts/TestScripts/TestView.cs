@@ -55,11 +55,6 @@ namespace Test.UI
             else                       _animBoolean.SetTrigger(TRIGGER_OFF);
         }
 
-        public void UpdateUserCoinInfo()
-        {
-            _TMP_coin.text = $"{UserSaveDataManager.UserSaveData.Coin}";
-        }
-
         // -- Private
         private void _OnInitBooleanSet(Action hapticOnClick)
         {
@@ -71,19 +66,34 @@ namespace Test.UI
         {
             var userData_lastEnterStr = UserSaveDataManager.UserSaveData.LastEnterStr;
 
-            _TMP_dataInfo.text = userData_lastEnterStr;
+            if (string.IsNullOrEmpty(userData_lastEnterStr)) _TMP_dataInfo.text = $"Null User Data";
+            else                                             _TMP_dataInfo.text = userData_lastEnterStr;
         }
 
         private void _OnInitIntSet(Action coinUpOnClick, Action coinDownOnClick)
         {
-            _BTN_up.onClick.AddListener(() => coinUpOnClick());
+            _BTN_up.  onClick.AddListener(() => coinUpOnClick());
             _BTN_down.onClick.AddListener(() => coinDownOnClick());
 
             var userData_coin = UserSaveDataManager.UserSaveData.Coin;
 
-            _TMP_coin.text = $"{userData_coin}";
+            _TMP_coin.text = _FormatToNumber(userData_coin);
         }
         #endregion
 
+        public void UpdateUserCoinInfo()
+        {
+            _TMP_coin.text = _FormatToNumber(UserSaveDataManager.UserSaveData.Coin);
+        }
+
+        private string _FormatToNumber(int coin)
+        {
+            // Test
+            if      (coin >= 0 && coin < 1000)                   return $"{coin}"; 
+            else if (coin >= 1000 && coin < 1000000)             return (coin / 1000.0).            ToString("0.##") + "K";
+            else if (coin >= 1000000 && coin < 1000000000)       return (coin / 1000000.0).         ToString("0.##") + "M";
+            else if (coin >= 1000000000 && coin < 1000000000000) return (coin / 1000000000.0).      ToString("0.##") + "G";
+            else                                                 return $"MAX";
+        }
     }
 }
