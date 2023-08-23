@@ -1,6 +1,6 @@
 // ----- C#
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using System.Globalization;
 
 // ----- Unity
 using UnityEngine;
@@ -68,6 +68,18 @@ namespace Main
             UserSaveDataManager.Save();
 
             _textView.UpdateUserCoinInfo();
+        }
+        private void OnApplicationQuit()
+        {
+            DateTime    currentDateTime     = DateTime.Now;
+            
+            var date = currentDateTime.ToString("yyyy-MM-dd tt hh:mm:ss", CultureInfo.GetCultureInfo("ko-KR"));
+
+            if (currentDateTime.Hour >= 12) date = date.Replace("오후", "PM");
+            else                            date = date.Replace("오전", "AM");
+
+            UserSaveDataManager.UserSaveData.LastEnterStr = date;
+            UserSaveDataManager.Save();
         }
     }
 }
