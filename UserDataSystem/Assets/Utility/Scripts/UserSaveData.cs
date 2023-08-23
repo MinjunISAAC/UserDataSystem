@@ -13,15 +13,18 @@ namespace Utility.ForData.User
         // Components
         // --------------------------------------------------
         [Header("Boolean")]
-        [SerializeField] private bool  _activeHaptic = false;
+        [SerializeField] private bool   _activeHaptic = false;
+
+        [Space(1.5f)] [Header("String")]
+        [SerializeField] private string _lastEnterStr = null; 
 
         [Space(1.5f)] [Header("Int")]
-        [SerializeField] private int   _currStage    = 0;
-        [SerializeField] private int   _userLevel    = 0;
-        [SerializeField] private int   _userCoin     = 0;
+        [SerializeField] private int    _currStage    = 0;
+        [SerializeField] private int    _userLevel    = 0;
+        [SerializeField] private int    _userCoin     = 0;
 
         [Space(1.5f)] [Header("Float")]
-        [SerializeField] private float _clearPercent = 0.0f;
+        [SerializeField] private float  _clearPercent = 0.0f;
 
         // --------------------------------------------------
         // Properties
@@ -31,6 +34,13 @@ namespace Utility.ForData.User
         {
             get => _activeHaptic;
             set => _activeHaptic = value;
+        }
+
+        // ----- String
+        public string LastEnterStr
+        {
+            get => _lastEnterStr;
+            set => _lastEnterStr = value;
         }
 
         // ----- Int
