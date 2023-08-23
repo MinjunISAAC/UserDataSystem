@@ -30,12 +30,7 @@ namespace Utility.ForData.User
         public static bool  UserActiveHaptic { get => UserSaveData.ActiveHaptic; }
 
         // ----- Int
-        public static int   UserCurrStage    { get => UserSaveData.CurrStage;    }
-        public static int   UserLevel        { get => UserSaveData.UserLevel;    }
         public static int   UserCoin         { get => UserSaveData.Coin;     }
-
-        // ----- Float
-        public static float UserClearPercent { get => UserSaveData.ClearPercent; }
 
         // --------------------------------------------------
         // Functions - Nomal
@@ -45,15 +40,15 @@ namespace Utility.ForData.User
         {
             UserSaveData = new UserSaveData();
 
-            //if (!ignoreSaveData)
-            //    SaveData();    
+            if (!ignoreSaveData)
+                Save();    
         }
 
         public static void Load()
         {
             if (!_TryLoad(FILE_NAME, out string fileContents))
             {
-                Debug.LogError($"[UserSaveDataManager.Load] {FILE_NAME} 파일이 존재하지 않습니다." + $"<color=red>{fileContents}</color>");
+                UserSaveData = new UserSaveData();
                 return;
             }
 

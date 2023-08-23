@@ -19,12 +19,7 @@ namespace Utility.ForData.User
         [SerializeField] private string _lastEnterStr = null; 
 
         [Space(1.5f)] [Header("Int")]
-        [SerializeField] private int    _currStage    = 0;
-        [SerializeField] private int    _userLevel    = 0;
         [SerializeField] private int    _userCoin     = 0;
-
-        [Space(1.5f)] [Header("Float")]
-        [SerializeField] private float  _clearPercent = 0.0f;
 
         // --------------------------------------------------
         // Properties
@@ -44,29 +39,10 @@ namespace Utility.ForData.User
         }
 
         // ----- Int
-        public int CurrStage
-        {
-            get => _currStage;
-            set => _currStage = value;
-        }
-
-        public int UserLevel
-        {
-            get => _userLevel;
-            set => _userLevel = value;
-        }
-
         public int Coin
         {
             get => _userCoin;
             set => _userCoin = value;
-        }
-
-        // ----- Float
-        public float ClearPercent
-        {
-            get => _clearPercent;
-            set => _clearPercent = value;
         }
     }
 }

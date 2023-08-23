@@ -42,25 +42,29 @@ namespace Test.UI
         // -- Public
         public void OnInIt(Action hapticOnClick, Action coinUpOnClick, Action coinDownOnClick)
         {
-            // Boolean Init
-            _OnInitBooleanSet(hapticOnClick);
+            _OnInitBooleanSet(hapticOnClick);              // Boolean Init
+            _OnInitStringSet();                            // String Init
+            _OnInitIntSet(coinUpOnClick, coinDownOnClick); // Int Init
+        }
 
-            // String Init
-            _OnInitStringSet();
+        public void OnInitBooleanSet()
+        {
+            var userData_activeHaptic = UserSaveDataManager.UserSaveData.ActiveHaptic;
 
-            // Int Init
-            _OnInitIntSet(coinUpOnClick, coinDownOnClick);
+            if (userData_activeHaptic) _animBoolean.SetTrigger(TRIGGER_ON);
+            else                       _animBoolean.SetTrigger(TRIGGER_OFF);
+        }
+
+        public void UpdateUserCoinInfo()
+        {
+            _TMP_coin.text = $"{UserSaveDataManager.UserSaveData.Coin}";
         }
 
         // -- Private
         private void _OnInitBooleanSet(Action hapticOnClick)
         {
             _BTN_haptic.onClick.AddListener(() => hapticOnClick());
-
-            var userData_activeHaptic = UserSaveDataManager.UserSaveData.ActiveHaptic;
-
-            if (userData_activeHaptic) _animBoolean.SetTrigger(TRIGGER_ON);
-            else                       _animBoolean.SetTrigger(TRIGGER_OFF);
+            OnInitBooleanSet();
         }
 
         private void _OnInitStringSet()

@@ -415,6 +415,8 @@ MonoBehaviour:
   _animBoolean: {fileID: 894617946}
   _TMP_dataInfo: {fileID: 1600411371}
   _TMP_coin: {fileID: 203317369}
+  _BTN_up: {fileID: 2044300410}
+  _BTN_down: {fileID: 2114787039}
 --- !u!1 &255214119
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,6 +489,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 323923802}
+  - component: {fileID: 323923803}
   m_Layer: 0
   m_Name: Main
   m_TagString: Untagged
@@ -513,6 +516,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &323923803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323923801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 305176bfc2f6b894d83c295a72fe51d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _textView: {fileID: 0}
 --- !u!1 &352936899
 GameObject:
   m_ObjectHideFlags: 0
