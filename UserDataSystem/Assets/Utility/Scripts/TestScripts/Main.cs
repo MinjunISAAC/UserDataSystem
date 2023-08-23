@@ -1,18 +1,21 @@
+// ----- C#
 using System.Collections;
 using System.Collections.Generic;
+
+// ----- Unity
 using UnityEngine;
 
-public class Main : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+// ----- User Defined
+using Utility.ForData.User;
 
-    // Update is called once per frame
-    void Update()
+namespace Main
+{
+    public class Main : MonoBehaviour
     {
-        
+        void Start()
+        {
+            // Save Data ·Îµå
+            UserSaveDataManager.Load();
+        }
     }
 }

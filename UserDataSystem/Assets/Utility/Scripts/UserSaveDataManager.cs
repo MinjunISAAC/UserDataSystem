@@ -32,7 +32,7 @@ namespace Utility.ForData.User
         // ----- Int
         public static int   UserCurrStage    { get => UserSaveData.CurrStage;    }
         public static int   UserLevel        { get => UserSaveData.UserLevel;    }
-        public static int   UserCoin         { get => UserSaveData.UserCoin;     }
+        public static int   UserCoin         { get => UserSaveData.Coin;     }
 
         // ----- Float
         public static float UserClearPercent { get => UserSaveData.ClearPercent; }

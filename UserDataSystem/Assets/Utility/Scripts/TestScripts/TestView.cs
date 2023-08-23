@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// ----- User Defined
+using Utility.ForData.User;
+
 namespace Test.UI 
 {
     public class TestView : MonoBehaviour
@@ -22,13 +25,61 @@ namespace Test.UI
 
         [Space(1.5f)] [Header("Int")]
         [SerializeField] private TextMeshProUGUI _TMP_coin     = null;
+        [SerializeField] private Button          _BTN_up       = null;
+        [SerializeField] private Button          _BTN_down     = null;
+
+        // --------------------------------------------------
+        // Variables
+        // --------------------------------------------------
+        private const string TRIGGER_ON  = "On";
+        private const string TRIGGER_OFF = "Off";
 
         // --------------------------------------------------
         // Functions - Nomal
         // --------------------------------------------------
-        public void OnInIt()
+        // ----- ÃÊ±âÈ­
+        #region
+        // -- Public
+        public void OnInIt(Action hapticOnClick, Action coinUpOnClick, Action coinDownOnClick)
         {
+            // Boolean Init
+            _OnInitBooleanSet(hapticOnClick);
 
+            // String Init
+            _OnInitStringSet();
+
+            // Int Init
+            _OnInitIntSet(coinUpOnClick, coinDownOnClick);
         }
+
+        // -- Private
+        private void _OnInitBooleanSet(Action hapticOnClick)
+        {
+            _BTN_haptic.onClick.AddListener(() => hapticOnClick());
+
+            var userData_activeHaptic = UserSaveDataManager.UserSaveData.ActiveHaptic;
+
+            if (userData_activeHaptic) _animBoolean.SetTrigger(TRIGGER_ON);
+            else                       _animBoolean.SetTrigger(TRIGGER_OFF);
+        }
+
+        private void _OnInitStringSet()
+        {
+            var userData_lastEnterStr = UserSaveDataManager.UserSaveData.LastEnterStr;
+
+            _TMP_dataInfo.text = userData_lastEnterStr;
+        }
+
+        private void _OnInitIntSet(Action coinUpOnClick, Action coinDownOnClick)
+        {
+            _BTN_up.onClick.AddListener(() => coinUpOnClick());
+            _BTN_down.onClick.AddListener(() => coinDownOnClick());
+
+            var userData_coin = UserSaveDataManager.UserSaveData.Coin;
+
+            _TMP_coin.text = $"{userData_coin}";
+        }
+        #endregion
+
     }
 }

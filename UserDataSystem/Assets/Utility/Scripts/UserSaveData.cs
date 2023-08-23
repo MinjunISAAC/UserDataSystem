@@ -56,7 +56,7 @@ namespace Utility.ForData.User
             set => _userLevel = value;
         }
 
-        public int UserCoin
+        public int Coin
         {
             get => _userCoin;
             set => _userCoin = value;
