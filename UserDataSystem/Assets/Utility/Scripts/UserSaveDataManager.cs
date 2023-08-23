@@ -5,6 +5,7 @@ using System.Text;
 
 // ----- Unity
 using UnityEngine;
+using UnityEditor;
 
 namespace Utility.ForData.User
 {
@@ -88,7 +89,7 @@ namespace Utility.ForData.User
         }
 
         // ----- Private
-        private static bool _TryLoad(string fileName, out string fileContents, bool useEncodeFileName = true, bool useEncodeData = true)
+        private static bool _TryLoad(string fileName, out string fileContents)
         {
             if (string.IsNullOrEmpty(fileName))
             {
@@ -96,10 +97,7 @@ namespace Utility.ForData.User
                 return false;
             }
 
-            var filePath = $"{Application.persistentDataPath}/";
-
-            if (useEncodeFileName) filePath += $"{_EncodeingBase64(fileName)}";
-            else                   filePath += $"{fileName}";
+            var filePath = $"{Application.persistentDataPath}/{fileName}";
 
             if (!File.Exists(filePath)) 
             { 
@@ -110,8 +108,6 @@ namespace Utility.ForData.User
             try
             {
                 fileContents = File.ReadAllText(filePath);
-
-                if (useEncodeData) fileContents = _DecodeingBase64(fileContents);
                 return true;
             }
             catch (Exception e)
@@ -145,18 +141,13 @@ namespace Utility.ForData.User
             {
                 var fileContents = JsonUtility.ToJson(UserSaveData);
 
-                var filePath = $"{Application.persistentDataPath}/";
-
-                if (useEncodeFileName) filePath += $"{_EncodeingBase64(fileName)}";
-                else                   filePath += $"{fileName}";
+                var filePath = $"{Application.persistentDataPath}/{fileName}";
 
                 try
                 {
-                    if (useEncodeData) fileContents = _EncodeingBase64(saveDataContents);
-                    else fileContents = saveDataContents;
-
+                    fileContents = saveDataContents;
                     File.WriteAllText(filePath, fileContents);
-
+                    
                     return true;
                 }
                 catch (Exception e)
@@ -172,7 +163,14 @@ namespace Utility.ForData.User
             }
         }
 
-        private static string _EncodeingBase64(string textForm)   => Convert.ToBase64String(Encoding.Unicode.GetBytes(textForm));
-        private static string _DecodeingBase64(string base64Form) => Encoding.Unicode.GetString(Convert.FromBase64String(base64Form));
+#if UNITY_EDITOR
+        [MenuItem("UserData/Delete User Save Data")]
+        private static void ClearUserSaveData()
+        {
+            string filePath = $"{Application.persistentDataPath}/{FILE_NAME}";
+
+            if (File.Exists(filePath)) File.Delete(filePath);
+        }
+#endif
     }
 }
